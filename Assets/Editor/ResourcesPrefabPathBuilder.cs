@@ -1,19 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿#if UNITY_EDITOR
 using UnityEditor.Build;
+using UnityEditor.Build.Reporting;
 
-public class ResourcesPrefabPathBuilder : MonoBehaviour
+//构建时执行此操作的脚本，每次更换预制体的时候，不用担心游戏模式
+public class ResourcesPrefabPathBuilder : IPreprocessBuildWithReport
 {
-    // Start is called before the first frame update
-    void Start()
+    public int callbackOrder
     {
-        
+        get
+        {
+            return 0;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnPreprocessBuild(BuildReport report)
     {
-        
+        MasterManager.PopulateNetworkedPrefabs();
     }
 }
+#endif 

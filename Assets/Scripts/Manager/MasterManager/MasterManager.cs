@@ -42,9 +42,9 @@ public class MasterManager : SingletonScriptableObject<MasterManager>
         return null;
     }
 
-    //在加载场景前运行
+    //在加载场景前运行,是为模拟在编辑器实现打包后的游戏，只启动一次
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    private static void PopulateNetworkedPrefabs()
+    public static void PopulateNetworkedPrefabs()
     {
 #if UNITY_EDITOR
 

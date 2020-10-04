@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b408f63b895f4127967b398b457c7d4, type: 3}
+  m_Name: CoskeySettings
+  m_EditorClassIdentifier: 
+  cosKey: 4c5d5ad6763f897294bdf4e41e0efa4c
+  projectGuid: 8a871987-b11d-4ba9-a6c8-49ebff520371
+  oversea: 1

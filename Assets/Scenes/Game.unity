@@ -384,7 +384,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172ac96ef5d691a408ba560997e0bfd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 3612160306557681735, guid: 39b92d9d73ff47c4a85a83790cf4bd96, type: 3}
 --- !u!1 &1052256399
 GameObject:
   m_ObjectHideFlags: 0
@@ -582,7 +581,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1453289507
 MonoBehaviour:
@@ -717,50 +716,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c9cc44d4c89a4e448038a22d22cf5ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1610232883
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1610232885}
-  - component: {fileID: 1610232884}
-  m_Layer: 0
-  m_Name: QuickInstantiate
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1610232884
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1610232883}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4ef535859e2dce46b9e2497a77968a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _prefab: {fileID: 3612160306557681735, guid: 5bbb0c29d09639a46a02d2ffbd179cf3, type: 3}
---- !u!4 &1610232885
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1610232883}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.6542909, y: 0.5216073, z: -3.5375335}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1855672478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -932,7 +887,7 @@ Transform:
   m_Children:
   - {fileID: 3612160307254372437}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &3612160307757841804
 BoxCollider:

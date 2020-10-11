@@ -1,14 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public class InstantiateExample : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject _prefab;
+    private AddressablePrefabPool addressablePrefabPool;
+    private AssetReference _assetReference;
 
     private void Awake()
     {
-        MasterManager.NetworkInstantiate(_prefab, transform.position, Quaternion.identity);
+        addressablePrefabPool.LoadAsset(_assetReference);
     }
 }

@@ -22,26 +22,26 @@ public class MasterManager : SingletonScriptableObject<MasterManager>
         }
     }
 
-    [SerializeField]
-    private List<NetworkPrefab> _networkPrefabs = new List<NetworkPrefab>();
+    //[SerializeField]
+    //private List<NetworkPrefab> _networkPrefabs = new List<NetworkPrefab>();
 
-    public static GameObject NetworkInstantiate(GameObject obj,Vector3 position, Quaternion rotarion)
-    {
-        foreach(NetworkPrefab networkPrefab in Instance._networkPrefabs )
-        {
-            if(networkPrefab.Prefab == obj)
-            {
-                GameObject result = PhotonNetwork.Instantiate(networkPrefab.Path, position, rotarion);
-                return result;
-            }
-            else
-            {
-                Debug.LogError("Path is empty for gameobject name " + networkPrefab.Prefab);
-                return null;
-            }
-        }
-        return null;
-    }
+    //public static GameObject NetworkInstantiate(GameObject obj,Vector3 position, Quaternion rotarion)
+    //{
+    //    foreach(NetworkPrefab networkPrefab in Instance._networkPrefabs )
+    //    {
+    //        if(networkPrefab.Prefab == obj)
+    //        {
+    //            GameObject result = PhotonNetwork.Instantiate(networkPrefab.Path, position, rotarion);
+    //            return result;
+    //        }
+    //        else
+    //        {
+    //            Debug.LogError("Path is empty for gameobject name " + networkPrefab.Prefab);
+    //            return null;
+    //        }
+    //    }
+    //    return null;
+    //}
 
 //    //在加载场景前运行,是为模拟在编辑器实现打包后的游戏，只启动一次
 //    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]

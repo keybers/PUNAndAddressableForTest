@@ -538,6 +538,7 @@ namespace Photon.Pun
                 //return (this.OwnerActorNr == PhotonNetwork.LocalPlayer.ActorNumber) || (PhotonNetwork.IsMasterClient && !this.IsOwnerActive);
 
                 // using this.OwnerActorNr instead of this.ownerId so that it's the right value during awake.
+
                 return (ownershipCacheIsValid & OwnershipCacheState.ControllerValid) == 0 ?
                     (this.OwnerActorNr == PhotonNetwork.LocalPlayer.ActorNumber) || (PhotonNetwork.IsMasterClient && !this.IsOwnerActive) :
                     amController;

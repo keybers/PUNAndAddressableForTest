@@ -1,9 +1,11 @@
 ﻿using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
+
+//#if UNITY_EDITOR
+//using UnityEditor;
+//#endif
+
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Singletons/MasterManager")]
@@ -38,35 +40,34 @@ public class MasterManager : SingletonScriptableObject<MasterManager>
                 return null;
             }
         }
-
         return null;
     }
 
-    //在加载场景前运行,是为模拟在编辑器实现打包后的游戏，只启动一次
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    public static void PopulateNetworkedPrefabs()
-    {
-#if UNITY_EDITOR
+//    //在加载场景前运行,是为模拟在编辑器实现打包后的游戏，只启动一次
+//    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+//    public static void PopulateNetworkedPrefabs()
+//    {
+//#if UNITY_EDITOR
 
-        //确保当前列表为空，才可加载
-        Instance._networkPrefabs.Clear();
+//        //确保当前列表为空，才可加载
+//        Instance._networkPrefabs.Clear();
 
-        //将所有gameobject加载到result中，含有photonView组件的就添加到列表中去
-        GameObject[] result = Resources.LoadAll<GameObject>("");
-        for(int i = 0; i < result.Length; i++)
-        {
-            if(result[i].GetComponent<PhotonView>()!= null)
-            {
-                string path = AssetDatabase.GetAssetPath(result[i]);
-                Instance._networkPrefabs.Add(new NetworkPrefab(result[i], path));
-            }
-        }
+//        //将所有gameobject加载到result中，含有photonView组件的就添加到列表中去
+//        GameObject[] result = Resources.LoadAll<GameObject>("");
+//        for(int i = 0; i < result.Length; i++)
+//        {
+//            if(result[i].GetComponent<PhotonView>()!= null)
+//            {
+//                string path = AssetDatabase.GetAssetPath(result[i]);
+//                Instance._networkPrefabs.Add(new NetworkPrefab(result[i], path));
+//            }
+//        }
 
-        for(int i = 0;i<Instance._networkPrefabs.Count; i++)
-        {
-            Debug.Log(Instance._networkPrefabs[i].Prefab.name + "," + Instance._networkPrefabs[i].Path);
-        }
-#endif
+//        for(int i = 0;i<Instance._networkPrefabs.Count; i++)
+//        {
+//            Debug.Log(Instance._networkPrefabs[i].Prefab.name + "," + Instance._networkPrefabs[i].Path);
+//        }
+//#endif
 
-    }
+//    }
 }

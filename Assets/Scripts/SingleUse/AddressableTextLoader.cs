@@ -15,39 +15,39 @@ public class AddressableTextLoader : MonoBehaviour
 
     public Transform _EnterPosition;//当前位置
 
+    private AddressablePrefabPool addressablePrefabPool;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        Addressables.LoadAssetAsync<GameObject>(playerPrefab).Completed += OnPlayerLoader;
+        this.addressablePrefabPool = new AddressablePrefabPool();
+        PhotonNetwork.PrefabPool = this.addressablePrefabPool;
+        this.addressablePrefabPool.PrefabPoolReady += this.OnPrefabPoolReady;
+        this.addressablePrefabPool.LoadAsset(this.playerPrefab);
+
     }
 
-    private void OnPlayerLoader(AsyncOperationHandle<GameObject> obj)
+    //关闭程序释放池中资源
+    private void OnDestroy()
     {
-        
-        switch (obj.Status)
-        {
-            case AsyncOperationStatus.Succeeded:
-                GameObject loaderObject = obj.Result;
-                GameObject go = Instantiate(loaderObject, _EnterPosition.position, Quaternion.identity);
-                Debug.Log("ViewID:" + go.GetComponent<PhotonView>());
-                break;
+        this.addressablePrefabPool.PrefabPoolReady -= this.OnPrefabPoolReady;
+    }
 
-            case AsyncOperationStatus.Failed:
-                Debug.LogError("AsyncOperationStatus.Failed");
-                break;
-
-            default:
-                break;
-        }
+    private void OnPrefabPoolReady(string prefabName)
+    {
+        GameObject go = PhotonNetwork.Instantiate(prefabName, this._EnterPosition.position, Quaternion.identity);
+        Debug.LogFormat("ViewID: {0}", go.GetComponent<PhotonView>().ViewID);
     }
 
     public class AddressablePrefabPool : IPunPrefabPool
     {
         private Dictionary<string, Pool> prefabs = new Dictionary<string, Pool>();
 
+        //先把addressable的资源全部加载出来并且池化
         public void LoadAsset(AssetReference assetReference)
         {
+            //异步
             Addressables.LoadAssetAsync<GameObject>(assetReference).Completed += (delegate (
                 AsyncOperationHandle<GameObject> handle)
             {
@@ -116,6 +116,7 @@ public class AddressableTextLoader : MonoBehaviour
 
             private List<GameObject> pooled;
 
+            //名字，预设，容量
             public Pool(string name, GameObject prefab, int capacity)
             {
                 this.name = name;
@@ -123,9 +124,20 @@ public class AddressableTextLoader : MonoBehaviour
                 this.pooled = new List<GameObject>(capacity);
             }
 
+            //名字，预设，容量，大小
             public Pool(string name,GameObject prefab,int capacity,int warmSize) : this(name, prefab, capacity)
             {
-
+                for(int i = 0; i < warmSize; i++)
+                {
+                    GameObject go = GameObject.Instantiate(this.prefab, Vector3.zero, Quaternion.identity);
+                    if (go.activeSelf)
+                        go.SetActive(false);
+                    PrefabReference prefabReference = go.GetComponent<PrefabReference>();
+                    if (!prefabReference)
+                        prefabReference = go.AddComponent<PrefabReference>();
+                    prefabReference.originalPrefabName = this.name;
+                    this.pooled.Add(go);
+                }
 
             }
 
@@ -138,8 +150,7 @@ public class AddressableTextLoader : MonoBehaviour
 
             public GameObject Get(Vector3 position, Quaternion rotation)
             {
-                //
-                GameObject go = null;
+                GameObject go;
                 int pooledCount = pooled.Count;
                 if(pooled.Count > 0)
                 {
@@ -147,10 +158,18 @@ public class AddressableTextLoader : MonoBehaviour
                 }
                 else
                 {
-                    //go = Instantiate(prefab, position, rotation);
+                    go = GameObject.Instantiate(this.prefab, position, rotation);
+                    if (go.activeSelf)
+                    {
+                        go.SetActive(false);
+                    }
                 }
-
-
+                PrefabReference prefabReference = go.GetComponent<PrefabReference>();
+                if (!prefabReference)
+                {
+                    prefabReference = go.AddComponent<PrefabReference>();
+                }
+                prefabReference.originalPrefabName = this.name;
                 return go;
             }
 
@@ -158,7 +177,7 @@ public class AddressableTextLoader : MonoBehaviour
             {
                 if (gameObject.activeSelf)
                 {
-                    gameObject.SetActive(true);
+                    gameObject.SetActive(false);
                 }
                 this.pooled.Add(gameObject);
             }

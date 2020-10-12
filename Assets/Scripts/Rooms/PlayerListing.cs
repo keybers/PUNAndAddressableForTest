@@ -17,13 +17,13 @@ public class PlayerListing : MonoBehaviourPunCallbacks
         private set;
     }
 
-    public bool Ready = false;
-
     public void SetPlayerInfo(Player player)
     {
         Player = player;
         SetPlayerText(player);
     }
+
+    public bool Ready = false;
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {

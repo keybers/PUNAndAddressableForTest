@@ -23,10 +23,14 @@ public class PlayerListingMenu : MonoBehaviourPunCallbacks
 
     private bool _ready = false;
 
+    private void Awake()
+    {
+        GetCurrentRoomPlayers();
+    }
+
     public override void OnEnable()
     {
         base.OnEnable();
-        GetCurrentRoomPlayers();
         SetReadyUp(false);
     }
 
@@ -122,14 +126,14 @@ public class PlayerListingMenu : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             //检查每个玩家，除本人外看是否都准备好了
-            //for(int i = 0; i < _listings.Count; i++)
-            //{
-            //    if(_listings[i].Player != PhotonNetwork.LocalPlayer)
-            //    {
-            //        if (!_listings[i].Ready)
-            //            return;
-            //    }
-            //}
+            for (int i = 0; i < _listings.Count; i++)
+            {
+                if (_listings[i].Player != PhotonNetwork.LocalPlayer)
+                {
+                    if (!_listings[i].Ready)
+                        return;
+                }
+            }
 
             //上锁房间
             PhotonNetwork.CurrentRoom.IsOpen = false;

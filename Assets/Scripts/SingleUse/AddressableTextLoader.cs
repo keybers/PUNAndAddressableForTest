@@ -19,7 +19,10 @@ public class AddressableTextLoader : MonoBehaviour
         this.addressablePrefabPool.PrefabPoolReady += addressablePrefabPool.OnPrefabPoolReady;//准备好后调用
 
         //异步加载物体之前的准备
-        this.addressablePrefabPool.LoadAsset(addressablePrefabPool.AssetReference);
+        foreach(var assetReferences in addressablePrefabPool.AssetReferences)
+        {
+            this.addressablePrefabPool.LoadAsset(assetReferences);
+        }
 
     }
 

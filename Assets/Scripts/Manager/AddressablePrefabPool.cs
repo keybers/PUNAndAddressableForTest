@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,16 +7,19 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
 [CreateAssetMenu(menuName = "Manager/AddressablePrefabPool")]
+[InfoBox("游戏对象池")]
 public class AddressablePrefabPool : ScriptableObject,IPunPrefabPool
 {
+    [SceneObjectsOnly]
+    [InfoBox("自定义对象池中的物体")]
     [SerializeField]
-    private AssetReference _assetReference;
+    private List<AssetReference> _assetReferences;
     
-    public AssetReference AssetReference
+    public List<AssetReference> AssetReferences
     {
         get
         {
-            return _assetReference;
+            return _assetReferences;
         }
     }
 
@@ -40,7 +44,6 @@ public class AddressablePrefabPool : ScriptableObject,IPunPrefabPool
                     PhotonView photonView = prefab.GetComponent<PhotonView>();
                     if (photonView)
                     {
-
                         string key = assetReference.AssetGUID;//GUID（全局唯一标识符）
                         //string key = assetReference.RuntimeKey.ToString();
                         Debug.Log("assetReference.AssetGUID:" + "${assetReference.AssetGUID}" + "assetReference.RuningtimeKey:" + "${assetReference.RuningtimeKey}");
@@ -49,6 +52,10 @@ public class AddressablePrefabPool : ScriptableObject,IPunPrefabPool
                         {
                             this.PrefabPoolReady(key);
                         }
+                    }
+                    else
+                    {
+                        photonView = prefab.AddComponent<PhotonView>();
                     }
                     Debug.Log("AsyncOperationStates.SUCCESSEDED");
                     break;

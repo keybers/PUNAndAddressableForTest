@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 719202ae6f9fe384c9acebc681e91f88, type: 3}
   m_Name: AddressablePrefabPool
   m_EditorClassIdentifier: 
-  _assetReference:
-    m_AssetGUID: 5bbb0c29d09639a46a02d2ffbd179cf3
+  _assetReferences:
+  - m_AssetGUID: 49f19d4b6f27c42478c0990eec0625c2
+    m_SubObjectName: 
+  - m_AssetGUID: 5bbb0c29d09639a46a02d2ffbd179cf3
     m_SubObjectName: 

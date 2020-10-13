@@ -17,6 +17,13 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 06b05d44f6bc9ee4e92b9ae09d8d8e66
   m_SerializeEntries:
+  - m_GUID: 49f19d4b6f27c42478c0990eec0625c2
+    m_Address: Assets/Prefabs/AddressableText/CapsuleText.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - TextLabel
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 5bbb0c29d09639a46a02d2ffbd179cf3
     m_Address: Assets/Prefabs/AddressableText/Cube.prefab
     m_ReadOnly: 0

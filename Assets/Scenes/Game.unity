@@ -595,9 +595,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441354c7053c92c42885b3259db90ad9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab:
-    m_AssetGUID: 5bbb0c29d09639a46a02d2ffbd179cf3
-    m_SubObjectName: 
   _EnterPosition: {fileID: 1453289506}
 --- !u!1 &1491399946
 GameObject:

@@ -1,14 +1,34 @@
 ﻿using Photon.Pun;
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;//异步加载
+using UnityEngine.ResourceManagement.AsyncOperations;
 
-
-public class AddressablePrefabPool : IPunPrefabPool
+[CreateAssetMenu(menuName = "Manager/AddressablePrefabPool")]
+[InfoBox("游戏对象池")]
+public class AddressablePrefabPool : ScriptableObject,IPunPrefabPool
 {
+    [SceneObjectsOnly]
+    [InfoBox("自定义对象池中的物体")]
+    [SerializeField]
+    private List<AssetReference> _assetReferences;
+    
+    public List<AssetReference> AssetReferences
+    {
+        get
+        {
+            return _assetReferences;
+        }
+    }
+
     private Dictionary<string, Pool> prefabs = new Dictionary<string, Pool>();
+
+    private void OnDestroy()
+    {
+        this.PrefabPoolReady -= OnPrefabPoolReady;
+    }
 
     //先把addressable的资源全部加载出来并且池化
     public void LoadAsset(AssetReference assetReference)
@@ -24,7 +44,6 @@ public class AddressablePrefabPool : IPunPrefabPool
                     PhotonView photonView = prefab.GetComponent<PhotonView>();
                     if (photonView)
                     {
-                        
                         string key = assetReference.AssetGUID;//GUID（全局唯一标识符）
                         //string key = assetReference.RuntimeKey.ToString();
                         Debug.Log("assetReference.AssetGUID:" + "${assetReference.AssetGUID}" + "assetReference.RuningtimeKey:" + "${assetReference.RuningtimeKey}");
@@ -33,6 +52,10 @@ public class AddressablePrefabPool : IPunPrefabPool
                         {
                             this.PrefabPoolReady(key);
                         }
+                    }
+                    else
+                    {
+                        photonView = prefab.AddComponent<PhotonView>();
                     }
                     Debug.Log("AsyncOperationStates.SUCCESSEDED");
                     break;
@@ -47,6 +70,12 @@ public class AddressablePrefabPool : IPunPrefabPool
     public delegate void PrefabPoolReadyDelegate(string prefab);
 
     public event PrefabPoolReadyDelegate PrefabPoolReady;
+
+    public void OnPrefabPoolReady(string prefabName)
+    {
+        GameObject go = PhotonNetwork.Instantiate(prefabName, Vector3.zero, Quaternion.identity);
+        Debug.LogFormat("ViewID: {0}", go.GetComponent<PhotonView>().ViewID);
+    }
 
     public void Destroy(GameObject gameObject)
     {
@@ -150,4 +179,5 @@ public class AddressablePrefabPool : IPunPrefabPool
             this.pooled.Add(gameObject);
         }
     }
+
 }

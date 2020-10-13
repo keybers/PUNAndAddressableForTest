@@ -18,7 +18,7 @@ Clound Content Delivery 1.0.0
 3.  开通服务设置好后获取得到COS Key
 4.  下载项目后使用Unity2019.4以上版本打开
 5.  将AppID和COS Key分别设置到PhotonServerSettings和PlayerSettings下的Cloud Content Delivery
-6.  运行实例场景Rooms
+6.  运行场景例子Rooms
 
 #### 注意
 

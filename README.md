@@ -14,7 +14,7 @@ Clound Content Delivery 1.0.0
 #### 使用说明
 
 1.  在[PUN2官网](https://www.photonengine.com/en-us/Photon)中注册账号，申请Photon Cloud Applications,获取AppID
-2.  使用AddressableAsset可以本地寻址加载或者网络云端加载，项目使用的是网络资源云加载，需要使用到腾讯的云服务Assetstreaming
+2.  使用AddressableAsset可以本地寻址加载或者网络云端加载，项目使用的是网络资源云加载，需要使用到腾讯的[云服务Assetstreaming](https://cloud.tencent.com/solution/ucg)
 3.  开通服务设置好后获取得到COS Key
 4.  下载项目后使用Unity2019.4以上版本打开
 5.  将AppID和COS Key分别设置到PhotonServerSettings和PlayerSettings下的Cloud Content Delivery

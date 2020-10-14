@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -528,10 +528,10 @@ RectTransform:
   m_Father: {fileID: 790912292}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 129.38307, y: -65.79805}
+  m_SizeDelta: {x: 238.76614, y: 111.59611}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &624284353
 MonoBehaviour:
@@ -575,7 +575,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 624284354}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 790912297}
+        m_MethodName: OnClick_BackToGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &624284354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -744,7 +755,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 537f79f6d1b4a8242b1c81c684f0df74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _settingCanvas: {fileID: 808913059}
 --- !u!1 &808913054
 GameObject:
   m_ObjectHideFlags: 0
@@ -1010,6 +1020,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 977149144}
+  - component: {fileID: 977149145}
   m_Layer: 0
   m_Name: Canvases
   m_TagString: Untagged
@@ -1033,6 +1044,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &977149145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 977149143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ac4dc2e7400c564ba9dd55bd158e1f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraCanvas: {fileID: 1865307907}
 --- !u!1 &1052256399
 GameObject:
   m_ObjectHideFlags: 0
@@ -1348,10 +1372,10 @@ RectTransform:
   m_Father: {fileID: 790912292}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 129.38307, y: -187.39415}
+  m_SizeDelta: {x: 238.76614, y: 111.59611}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1451822314
 MonoBehaviour:
@@ -1395,7 +1419,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1451822315}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 790912297}
+        m_MethodName: OnClick_OpenSettingMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1451822315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1579,7 +1614,7 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents: []
-  viewIdField: 1
+  viewIdField: 4
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &1491399950
@@ -1628,10 +1663,10 @@ RectTransform:
   m_Father: {fileID: 790912292}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 129.38307, y: -308.99026}
+  m_SizeDelta: {x: 238.76614, y: 111.59611}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1517505183
 MonoBehaviour:
@@ -1675,7 +1710,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1517505184}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 790912297}
+        m_MethodName: OnClick_GameToExit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1517505184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1824,13 +1870,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1865307906}
+  - component: {fileID: 1865307907}
   m_Layer: 0
   m_Name: CameraCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1865307906
 Transform:
   m_ObjectHideFlags: 0
@@ -1847,6 +1894,20 @@ Transform:
   m_Father: {fileID: 977149144}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1865307907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1865307905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bc19738993a0c44ebe998ce7bab3c1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _menuCanvas: {fileID: 1284331062}
+  _settingCanvas: {fileID: 808913059}
 --- !u!1 &2079443893
 GameObject:
   m_ObjectHideFlags: 0

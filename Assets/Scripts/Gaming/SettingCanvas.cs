@@ -5,6 +5,16 @@ using UnityEngine;
 
 public class SettingCanvas : MonoBehaviour
 {
+    [SerializeField]
+    private SettingMenu _settingMenu;
+    public SettingMenu SettingMenu
+    {
+        get
+        {
+            return _settingMenu;
+        }
+    }
+
     private CameraCanvas _cameraCanvas;
 
     public void Show()
@@ -12,13 +22,15 @@ public class SettingCanvas : MonoBehaviour
         gameObject.SetActive(true);
     }
 
+    public void Close()
+    {
+        gameObject.SetActive(false);
+    }
+
     public void FirstInitialize(CameraCanvas cameraCanvas)
     {
         _cameraCanvas = cameraCanvas;
-
-        if (this.gameObject.activeSelf)
-        {
-            this.gameObject.SetActive(false);
-        }
+        _settingMenu.FirstInitialize(_cameraCanvas);
+        Close();
     }
 }

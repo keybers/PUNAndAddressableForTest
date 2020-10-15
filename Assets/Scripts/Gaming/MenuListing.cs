@@ -19,6 +19,7 @@ public class MenuListing : MonoBehaviourPunCallbacks
     public void OnClick_OpenSettingMenu()
     {
         _cameraCanvas.SettingCanvas.Show();
+        _cameraCanvas.SettingCanvas.SettingMenu.Show();
     }
 
     public void OnClick_GameToExit()
@@ -38,6 +39,7 @@ public class MenuListing : MonoBehaviourPunCallbacks
     public void FirstInitalize(CameraCanvas cameraCanvas)
     {
         _cameraCanvas = cameraCanvas;
+        _cameraCanvas.MenuCanvas.Show();
         this.Show();
     }
 }

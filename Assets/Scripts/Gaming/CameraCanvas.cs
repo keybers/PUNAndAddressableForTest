@@ -28,9 +28,7 @@ public class CameraCanvas : MonoBehaviour
     public void FirstInitialize()
     {
         if (!this.gameObject.activeSelf)
-        {
             this.gameObject.SetActive(true);
-        }
 
         this._menuCanvas.FirstInitialize(this);
         this._settingCanvas.FirstInitialize(this);

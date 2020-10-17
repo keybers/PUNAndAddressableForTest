@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,4 +37,11 @@ public class CurrentRoomCanvas : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
+
+    public void OnDestroy()
+    {
+        PhotonNetwork.CurrentRoom.RemovedFromList = true;
+        Debug.Log("Destroy Room");
+    }
+
 }

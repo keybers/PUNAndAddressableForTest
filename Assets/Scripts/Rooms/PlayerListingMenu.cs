@@ -23,15 +23,11 @@ public class PlayerListingMenu : MonoBehaviourPunCallbacks
 
     private bool _ready = false;
 
-    private void Awake()
-    {
-        GetCurrentRoomPlayers();
-    }
-
     public override void OnEnable()
     {
         base.OnEnable();
         SetReadyUp(false);
+        GetCurrentRoomPlayers();
     }
 
     private void SetReadyUp(bool state)
@@ -75,11 +71,12 @@ public class PlayerListingMenu : MonoBehaviourPunCallbacks
         {
             AddPlayerListing(playInfo.Value);
         }
+
     }
 
     private void AddPlayerListing(Player player)
     {
-        int index = _listings.FindIndex(x => x.Player == player);
+        int index = _listings.FindIndex(x => x.Player == player);//match表示匹配条件
         if(index != -1)
         {
             _listings[index].SetPlayerInfo(player);
@@ -89,8 +86,8 @@ public class PlayerListingMenu : MonoBehaviourPunCallbacks
             PlayerListing listing = Instantiate(_playerListing, _content);
             if (listing != null)
             {
-                listing.SetPlayerInfo(player);
                 _listings.Add(listing);
+                listing.SetPlayerInfo(player);
             }
         }
     }
@@ -138,7 +135,7 @@ public class PlayerListingMenu : MonoBehaviourPunCallbacks
             //上锁房间
             PhotonNetwork.CurrentRoom.IsOpen = false;
             PhotonNetwork.CurrentRoom.IsVisible = false;
-            
+
             PhotonNetwork.LoadLevel(1);
         }
     }

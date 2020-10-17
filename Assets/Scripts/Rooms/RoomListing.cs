@@ -10,7 +10,11 @@ public class RoomListing : MonoBehaviour
     [SerializeField]
     private Text _test;
 
-    public RoomInfo RoomInfo { get; private set; }
+    public RoomInfo RoomInfo
+    {
+        get;
+        private set;
+    }
 
     public void SetRoomInfo(RoomInfo roomInfo)
     {
@@ -21,6 +25,7 @@ public class RoomListing : MonoBehaviour
     public void OnClick_Button()
     {
         PhotonNetwork.JoinRoom(RoomInfo.Name);
+        Destroy(this);
     }
 
 }

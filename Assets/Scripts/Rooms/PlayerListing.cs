@@ -43,6 +43,7 @@ public class PlayerListing : MonoBehaviourPunCallbacks
         if (player.CustomProperties.ContainsKey("RandomNumber"))
             result = (int)player.CustomProperties["RandomNumber"];
 
+
         _test.text = result.ToString() + "," + player.NickName;
     }
 

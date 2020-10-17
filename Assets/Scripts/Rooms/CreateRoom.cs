@@ -29,7 +29,7 @@ public class CreateRoom : MonoBehaviourPunCallbacks
         }
 
         //create room
-        //join or  createroom
+        //join or create room
         RoomOptions option = new RoomOptions();
         option.BroadcastPropsChangeToAll = true;//数据改变时，分发消息
         option.PublishUserId = true;

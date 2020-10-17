@@ -9,8 +9,16 @@ public class LeaveRoomMenu : MonoBehaviour
 
     public void OnClick_LeaveRoom()
     {
+        if(PhotonNetwork.CurrentRoom.PlayerCount == 0)
+        {
+            _roomCanvases.CurrentRoomCanvas.OnDestroy();
+        }
+        else
+        {
+            _roomCanvases.CurrentRoomCanvas.Hide();
+        }
+
         PhotonNetwork.LeaveRoom(true);
-        _roomCanvases.CurrentRoomCanvas.Hide();
     }
 
     public void FirstInitialize(RoomCanvases roomCanvases)

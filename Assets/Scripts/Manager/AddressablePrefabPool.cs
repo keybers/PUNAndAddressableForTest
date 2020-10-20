@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿using Cinemachine;
+using Photon.Pun;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;

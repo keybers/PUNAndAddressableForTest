@@ -1,8 +1,6 @@
-﻿using ExitGames.Client.Photon;
+﻿using Cinemachine;
 using Photon.Pun;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 public class AddressableTextLoader : MonoBehaviour
 {
@@ -10,6 +8,7 @@ public class AddressableTextLoader : MonoBehaviour
 
     void Awake()
     {
+
         addressablePrefabPool = MasterManager.AddressablePrefabPool;
         PhotonNetwork.PrefabPool = this.addressablePrefabPool;
 

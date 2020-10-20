@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿using Cinemachine;
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,8 @@ public class SimpleObjectMover : MonoBehaviourPun,IPunObservable
 {
     [SerializeField]
     private float _moveSpeed = 1f;
+
+    private CinemachineVirtualCamera _cinemachineVirtualCamera;
 
     private Animator _animator;
 
@@ -29,6 +32,16 @@ public class SimpleObjectMover : MonoBehaviourPun,IPunObservable
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        _cinemachineVirtualCamera = FindObjectOfType<CinemachineVirtualCamera>();
+    }
+
+    private void Start()
+    {
+        if (_cinemachineVirtualCamera.isActiveAndEnabled)
+        {
+            _cinemachineVirtualCamera.Follow = this.transform;
+            _cinemachineVirtualCamera.LookAt = this.transform;
+        }
     }
 
     private void Update()

@@ -28,7 +28,6 @@ public class AddressablePrefabPool : ScriptableObject,IPunPrefabPool
     public void OnDestroy()
     {
         this.PrefabPoolReady -= OnPrefabPoolReady;
-        PhotonNetwork.DestroyAll();
     }
 
     //先把addressable的资源全部加载出来并且池化
@@ -100,7 +99,6 @@ public class AddressablePrefabPool : ScriptableObject,IPunPrefabPool
             {
                 go.SetActive(false);//return GameObject must be deactivated
             }
-            Debug.LogFormat("ViewID: {0}", go.GetComponent<PhotonView>().ViewID);
             return go;
         }
         return null;
@@ -179,6 +177,15 @@ public class AddressablePrefabPool : ScriptableObject,IPunPrefabPool
             }
             this.pooled.Add(gameObject);
         }
+
+        //public void Remove(GameObject gameObject)
+        //{
+        //    if (gameObject.activeSelf)
+        //    {
+        //        MonoBehaviour.Destroy(gameObject);
+        //    }
+        //    pooled.Remove(gameObject);
+        //}
     }
 
 }

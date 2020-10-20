@@ -14,21 +14,15 @@ public class AddressableTextLoader : MonoBehaviour
         PhotonNetwork.PrefabPool = this.addressablePrefabPool;
 
         this.addressablePrefabPool.PrefabPoolReady += addressablePrefabPool.OnPrefabPoolReady;//准备好后调用
-
-        //异步加载物体之前的准备
-        foreach(var assetReferences in addressablePrefabPool.AssetReferences)
+        foreach (var assetReferences in addressablePrefabPool.AssetReferences)
         {
             this.addressablePrefabPool.LoadAsset(assetReferences);
         }
     }
 
-    void Update()
+    private void OnDestroy()
     {
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            addressablePrefabPool.OnDestroy();
-        }
-
+        addressablePrefabPool.OnDestroy();
     }
+
 }

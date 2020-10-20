@@ -16,17 +16,17 @@ public class SettingMenu : MonoBehaviour
         Rtoggle = gameObject.GetComponentInChildren<Toggle>();
         Rtoggle.isOn = false;
 
-        Back();
+        Close();
     }
 
-    public void Back()
+    public void Close()
     {
         this.gameObject.SetActive(false);
     }
 
-    public void OnClick_BackButton()
+    public void OnClick_CloseButton()
     {
-        Back();
+        Close();
     }
 
     public void Show()

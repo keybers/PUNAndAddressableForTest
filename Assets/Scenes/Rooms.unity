@@ -3288,7 +3288,11 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: CreateRoom
+  m_Text: 'Create
+
+    Or
+
+    Joing'
 --- !u!222 &1809246439
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3708,4 +3712,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b483d514c7fd9aa4880798181788a654, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerListingMenu: {fileID: 1046540905}

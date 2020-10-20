@@ -47,4 +47,5 @@ public class SimpleObjectMover : MonoBehaviourPun,IPunObservable
     {
         _animator.SetBool("Moving", moving);
     }
+
 }

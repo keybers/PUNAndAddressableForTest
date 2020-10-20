@@ -25,9 +25,10 @@ public class AddressablePrefabPool : ScriptableObject,IPunPrefabPool
 
     private Dictionary<string, Pool> prefabs = new Dictionary<string, Pool>();
 
-    private void OnDestroy()
+    public void OnDestroy()
     {
         this.PrefabPoolReady -= OnPrefabPoolReady;
+        PhotonNetwork.DestroyAll();
     }
 
     //先把addressable的资源全部加载出来并且池化
@@ -45,8 +46,6 @@ public class AddressablePrefabPool : ScriptableObject,IPunPrefabPool
                     if (photonView)
                     {
                         string key = assetReference.AssetGUID;//GUID（全局唯一标识符）
-                        //string key = assetReference.RuntimeKey.ToString();
-                        Debug.Log("assetReference.AssetGUID:" + "${assetReference.AssetGUID}" + "assetReference.RuningtimeKey:" + "${assetReference.RuningtimeKey}");
                         this.prefabs[key] = new Pool(key, handle.Result);
                         if (this.prefabs[key] != null)
                         {
@@ -67,7 +66,7 @@ public class AddressablePrefabPool : ScriptableObject,IPunPrefabPool
         });
     }
 
-    public delegate void PrefabPoolReadyDelegate(string prefab);
+    public delegate void PrefabPoolReadyDelegate(string prefabName);
 
     public event PrefabPoolReadyDelegate PrefabPoolReady;
 
@@ -76,6 +75,7 @@ public class AddressablePrefabPool : ScriptableObject,IPunPrefabPool
         GameObject go = PhotonNetwork.Instantiate(prefabName, Vector3.zero, Quaternion.identity);
         Debug.LogFormat("ViewID: {0}", go.GetComponent<PhotonView>().ViewID);
     }
+
 
     public void Destroy(GameObject gameObject)
     {
@@ -100,6 +100,7 @@ public class AddressablePrefabPool : ScriptableObject,IPunPrefabPool
             {
                 go.SetActive(false);//return GameObject must be deactivated
             }
+            Debug.LogFormat("ViewID: {0}", go.GetComponent<PhotonView>().ViewID);
             return go;
         }
         return null;

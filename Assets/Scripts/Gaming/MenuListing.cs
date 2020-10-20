@@ -23,7 +23,8 @@ public class MenuListing : MonoBehaviourPunCallbacks
         _cameraCanvas.Hide();
 
         //结束游戏退回房间
-
+        PhotonNetwork.LeaveRoom(true);
+        PhotonNetwork.LoadLevel(0);
     }
 
     public void Show()

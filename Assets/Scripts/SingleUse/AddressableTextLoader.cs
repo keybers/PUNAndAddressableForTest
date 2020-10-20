@@ -8,7 +8,7 @@ public class AddressableTextLoader : MonoBehaviour
 {
     private AddressablePrefabPool addressablePrefabPool;
 
-    void Start()
+    void Awake()
     {
         addressablePrefabPool = MasterManager.AddressablePrefabPool;
         PhotonNetwork.PrefabPool = this.addressablePrefabPool;
@@ -22,4 +22,13 @@ public class AddressableTextLoader : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            addressablePrefabPool.OnDestroy();
+        }
+
+    }
 }

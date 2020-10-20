@@ -1,26 +1,32 @@
-﻿using System;
+﻿using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SettingMenu : MonoBehaviour
 {
     private CameraCanvas _cameraCanvas;
+    private Toggle Rtoggle;
 
     public void FirstInitialize(CameraCanvas cameraCanvas)
     {
         _cameraCanvas = cameraCanvas;
-        Close();
+        Rtoggle = gameObject.GetComponentInChildren<Toggle>();
+        Rtoggle.isOn = false;
+
+        Back();
     }
 
-    public void Close()
+    public void Back()
     {
         this.gameObject.SetActive(false);
     }
 
-    public void OnClick_CloseButton()
+    public void OnClick_BackButton()
     {
-        _cameraCanvas.SettingCanvas.Close();
+        Back();
     }
 
     public void Show()
@@ -31,7 +37,14 @@ public class SettingMenu : MonoBehaviour
     public void OnClick_ResolutionToggle()
     {
         //需要全局通知
-        Screen.SetResolution(1920, 1080, true);
+        if (Rtoggle.isOn)
+        {
+            Screen.SetResolution(1920, 1080, true);
+        }
+        else
+        {
+            Screen.SetResolution(1600, 960, false);
+        }
     }
 
 }

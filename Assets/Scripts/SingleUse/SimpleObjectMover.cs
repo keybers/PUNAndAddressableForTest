@@ -33,10 +33,6 @@ public class SimpleObjectMover : MonoBehaviourPun,IPunObservable
     {
         _animator = GetComponent<Animator>();
         _cinemachineVirtualCamera = FindObjectOfType<CinemachineVirtualCamera>();
-    }
-
-    private void Start()
-    {
         if (_cinemachineVirtualCamera.isActiveAndEnabled)
         {
             _cinemachineVirtualCamera.Follow = this.transform;
@@ -49,10 +45,10 @@ public class SimpleObjectMover : MonoBehaviourPun,IPunObservable
         if (base.photonView.IsMine)
         {
             float x = Input.GetAxisRaw("Horizontal");
-            float y = Input.GetAxisRaw("Vertical");
-            transform.position += (new Vector3(x, y, 0f)) * _moveSpeed;
-
-            UpdateMovingBoolean((x != 0f || y != 0f));
+            float z = Input.GetAxisRaw("Vertical");
+            transform.localPosition += (new Vector3(x, 0f, z)) * _moveSpeed * Time.deltaTime;
+            
+            UpdateMovingBoolean((x != 0f || z != 0f));
         }
     }
 

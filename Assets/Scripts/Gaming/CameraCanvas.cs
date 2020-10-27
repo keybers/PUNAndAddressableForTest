@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Photon.Pun;
+using Photon.Realtime;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraCanvas : MonoBehaviour
+public class CameraCanvas : MonoBehaviourPunCallbacks
 {
     [SerializeReference]
     private MenuCanvas _menuCanvas;
@@ -29,11 +31,11 @@ public class CameraCanvas : MonoBehaviour
     {
         if (!this.gameObject.activeSelf)
             this.gameObject.SetActive(true);
-
         this._menuCanvas.FirstInitialize(this);
         this._settingCanvas.FirstInitialize(this);
-    }
 
+        Time.timeScale = 0;
+    }
     public void Hide()
     {
         this.gameObject.SetActive(false);

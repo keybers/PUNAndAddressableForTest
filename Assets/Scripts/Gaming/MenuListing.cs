@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using UnityEngine;
 
 public class MenuListing : MonoBehaviourPunCallbacks
 {
@@ -8,7 +9,7 @@ public class MenuListing : MonoBehaviourPunCallbacks
     {
         //由暂停游戏到继续游戏
         _cameraCanvas.Hide();
-
+        Time.timeScale = 1f;
     }
 
     public void OnClick_OpenSettingMenu()

@@ -39,6 +39,7 @@ MonoBehaviour:
   - Fire
   - RespawnSpaceship
   - RPC_ChangeReadyState
+  - RPC_ChangePauseState
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

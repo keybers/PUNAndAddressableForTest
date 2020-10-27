@@ -8,6 +8,7 @@
     <type fullname="UnityEngine.Shader" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.Rigidbody" preserve="all" />
     <type fullname="UnityEngine.BoxCollider" preserve="all" />
     <type fullname="UnityEngine.SphereCollider" preserve="all" />
     <type fullname="UnityEngine.CapsuleCollider" preserve="all" />
@@ -19,6 +20,7 @@
   </assembly>
   <assembly fullname="PhotonUnityNetworking, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
     <type fullname="Photon.Pun.PhotonAnimatorView" preserve="all" />
+    <type fullname="Photon.Pun.PhotonRigidbodyView" preserve="all" />
     <type fullname="Photon.Pun.PhotonTransformView" preserve="all" />
     <type fullname="Photon.Pun.PhotonTransformViewClassic" preserve="all" />
     <type fullname="Photon.Pun.PhotonView" preserve="all" />

@@ -1,5 +1,4 @@
-﻿using Cinemachine;
-using Photon.Pun;
+﻿using Photon.Pun;
 using UnityEngine;
 
 public class AddressableTextLoader : MonoBehaviour

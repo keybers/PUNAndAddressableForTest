@@ -88,14 +88,6 @@
       },
       "url": "https://packages.unity.cn"
     },
-    "com.unity.ml-agents.extensions": {
-      "version": "file:../Library/PackageCache/com.unity.ml-agents.extensions",
-      "depth": 0,
-      "source": "local",
-      "dependencies": {
-        "com.unity.ml-agents": "1.5.0-preview"
-      }
-    },
     "com.unity.probuilder": {
       "version": "4.2.3",
       "depth": 0,

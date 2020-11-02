@@ -1,7 +1,5 @@
 ﻿using Cinemachine;
 using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -10,9 +8,9 @@ public class SimpleObjectMover : MonoBehaviourPun,IPunObservable
     [SerializeField]
     private float _moveSpeed = 1f;
 
-    private CinemachineVirtualCamera _cinemachineVirtualCamera;
-
     private Animator _animator;
+    private GameObject _CMMain;
+
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
@@ -32,11 +30,16 @@ public class SimpleObjectMover : MonoBehaviourPun,IPunObservable
     private void Awake()
     {
         _animator = GetComponent<Animator>();
-        _cinemachineVirtualCamera = FindObjectOfType<CinemachineVirtualCamera>();
-        if (_cinemachineVirtualCamera.isActiveAndEnabled)
+    }
+
+    private void Start()
+    {
+        CinemachineVirtualCamera cinemachineVirtualCamera = GameObject.Find("/CM/CMMain").GetComponent<CinemachineVirtualCamera>();
+        if (base.photonView.IsMine)
         {
-            _cinemachineVirtualCamera.Follow = this.transform;
-            _cinemachineVirtualCamera.LookAt = this.transform;
+            cinemachineVirtualCamera.LookAt = this.transform;
+            cinemachineVirtualCamera.Follow = this.transform;
+            Debug.Log("找到了");
         }
     }
 

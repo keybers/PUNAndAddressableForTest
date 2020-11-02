@@ -6,7 +6,6 @@
     "com.unity.collab-proxy": "1.2.16",
     "com.unity.ide.vscode": "1.2.1",
     "com.unity.ml-agents": "1.5.0-preview",
-    "com.unity.ml-agents.extensions": "file:../Library/PackageCache/com.unity.ml-agents.extensions",
     "com.unity.probuilder": "4.2.3",
     "com.unity.render-pipelines.universal": "7.3.1",
     "com.unity.test-framework": "1.1.14",

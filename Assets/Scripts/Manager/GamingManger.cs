@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using Cinemachine;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GamingManger : MonoBehaviour
 {
     public CameraCanvas cameraCanvas;
+
 
     void Update()
     {
@@ -13,4 +15,5 @@ public class GamingManger : MonoBehaviour
             cameraCanvas.FirstInitialize();
         }
     }
+
 }

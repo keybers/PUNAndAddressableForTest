@@ -11,7 +11,6 @@
 3.   Addressables 1.8.5
 4.   Clound Content Delivery 1.0.0
 5.   ML-Agents 1.5.0
-6.   ML-Agents Extensions 0.0.1
 
 #### 使用说明
 

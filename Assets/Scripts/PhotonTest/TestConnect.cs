@@ -1,21 +1,34 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
 public class TestConnect : MonoBehaviourPunCallbacks
 {
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         Debug.Log("Connecting to Server");
+
         PhotonNetwork.SendRate = 10;//每秒发送数据多少次
         PhotonNetwork.SerializationRate = 5; //每秒接收多少序列化，如果比接收高，则接收数据会受到影响
         PhotonNetwork.AutomaticallySyncScene = true;//确保加载场景的时候，所有玩家异步加载同样的场景
         PhotonNetwork.GameVersion = MasterManager.GameSettings.GameVersion;//游戏版本
-        PhotonNetwork.NickName = MasterManager.GameSettings.NickName;//昵称
-        PhotonNetwork.ConnectUsingSettings();//使用设置进行连接
+
+        if(PhotonNetwork.NickName == null)
+        {
+            PhotonNetwork.NickName = MasterManager.GameSettings.NickName;//昵称
+        }else if (PhotonNetwork.InRoom)
+        {
+            Debug.Log("在房间，选择退出房间");
+            PhotonNetwork.LeaveRoom();
+        }
+
+        if (!PhotonNetwork.IsConnected)
+        {
+            Debug.Log("未连接开始链接");
+            PhotonNetwork.ConnectUsingSettings();//使用设置进行连接
+        }
+
     }
 
     public override void OnConnectedToMaster()//重写连接主服务器函数
@@ -27,6 +40,7 @@ public class TestConnect : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.JoinLobby();
         }
+
     }
 
     public override void OnDisconnected(DisconnectCause cause)
@@ -38,4 +52,5 @@ public class TestConnect : MonoBehaviourPunCallbacks
     {
         Debug.Log("Join a Lobby");
     }
+
 }

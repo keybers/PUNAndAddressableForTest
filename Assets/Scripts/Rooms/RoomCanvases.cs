@@ -24,7 +24,7 @@ public class RoomCanvases : MonoBehaviour
         }
     }
 
-    private void Awake()
+    private void Start()
     {
         FirstInitialize();
     }

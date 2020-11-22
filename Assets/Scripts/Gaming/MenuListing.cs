@@ -1,4 +1,6 @@
 ﻿using Photon.Pun;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MenuListing : MonoBehaviourPunCallbacks
@@ -18,16 +20,21 @@ public class MenuListing : MonoBehaviourPunCallbacks
         _cameraCanvas.SettingCanvas.SettingMenu.Show();
     }
 
+    //关闭UI
+    //卸载Game场景
+    //加载Room场景
+    //获取大厅信息
     public void OnClick_GameToExit()
     {
         //关闭UI
         _cameraCanvas.Hide();
+        Time.timeScale = 1f;
 
         //结束游戏退回房间
-        PhotonNetwork.LeaveRoom(true);
         PhotonNetwork.LoadLevel(0);
+        PhotonNetwork.LeaveRoom();
     }
-
+    
     public void Show()
     {
         this.gameObject.SetActive(true);
@@ -40,3 +47,4 @@ public class MenuListing : MonoBehaviourPunCallbacks
         this.Show();
     }
 }
+

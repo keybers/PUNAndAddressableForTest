@@ -39,7 +39,6 @@ public class SimpleObjectMover : MonoBehaviourPun,IPunObservable
         {
             cinemachineVirtualCamera.LookAt = this.transform;
             cinemachineVirtualCamera.Follow = this.transform;
-            Debug.Log("找到了");
         }
     }
 

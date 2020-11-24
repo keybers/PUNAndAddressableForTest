@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.MLAgents;
+using Unity.MLAgents.Sensors;
 using UnityEngine;
 
 /// <summary>
@@ -45,7 +46,7 @@ public class HummingbirdAgent : Agent
     [Tooltip("代理鸟能俯仰的最大角度")]
     private const float MaxPitchAngle = 80f;
 
-    [Tooltip("从喙尖到接受花蜜碰撞的最大距离")]
+    [Tooltip("从喙尖到接受花蜜碰撞的最大距离，喙尖半径")]
     private const float BeakTipRedius = 0.008f;
 
     [Tooltip("代理是否被冻结（故意不飞）")]
@@ -211,7 +212,268 @@ public class HummingbirdAgent : Agent
     /// <param name="vectorAction">要采取的行动</param>
     public override void OnActionReceived(float[] vectorAction)
     {
+        //如果冻结,不做任何事
+        if (frozen) return;
+
+        //收集移动方向
+        Vector3 move = new Vector3(vectorAction[0], vectorAction[1], vectorAction[2]);
+
+        //添加能产生动作的力
+        rigidbody.AddForce(moveForce * move);
+
+        //获取当前朝向
+        Vector3 rotationVector = transform.rotation.eulerAngles;
+
+        //收集起降方向和头部左右摆动控制
+        float pitchChange = vectorAction[3];
+        float yawChange = vectorAction[4];
+
+        //收集平滑旋转改变后的量 target -> current
+        smoothPitchChange = Mathf.MoveTowards(smoothPitchChange, pitchChange, 2f * Time.fixedDeltaTime);
+        smoothYawChange = Mathf.MoveTowards(smoothYawChange, yawChange, 2f * Time.fixedDeltaTime);
+
+        //收集基于平滑旋转和起伏的对应值
+        //最终起伏值 = 当前旋转x + 平滑旋转改变值 * 平滑时间 * 旋转速度大小
+        //如果值大于180度 则变化为-180度，否则值只会越来越大,限定在范围内
+        float pitch = rotationVector.x + smoothPitchChange * Time.fixedDeltaTime * pitchSpeed;
+        if (pitch > 180f) pitch -= 360f;
+        pitch = Mathf.Clamp(pitch, -MaxPitchAngle, MaxPitchAngle);
+
+        float yaw = rotationVector.y + smoothYawChange * Time.fixedDeltaTime * yawSpeed;
+
+        //激活旋转起伏的数值
+        transform.rotation = Quaternion.Euler(pitch, yaw, 0f);
+    }
+
+    /// <summary>
+    /// 从环境中收集观测数据
+    /// </summary>
+    /// <param name="sensor">矢量传感器</param>
+    public override void CollectObservations(VectorSensor sensor)
+    {
+        //如果附近花不存在，则观测当前数值(1观测量)
+        if(nearestFlower == null)
+        {
+            sensor.AddObservation(new float[10]);
+            return;
+        }
+
+        //观测代理当前的朝向数据(4 观察量)
+        sensor.AddObservation(transform.localRotation.normalized);
+
+        //代理位置指向花中心位置的矢量
+        Vector3 toFlower = nearestFlower.FlowerCenterPosition - beakTip.position;
+
+        //观测代理位置指向花中心位置的矢量数据(3 观测量)
+        sensor.AddObservation(toFlower.normalized);
+
+        //观察一个点积，表明喙尖是否在花的前面(1 观测量)
+        //(+1 意味着喙尖在花的正前方 , -1 意思是在后方)确保代理在花的头顶上
+        sensor.AddObservation(Vector3.Dot(toFlower.normalized, -nearestFlower.FlowerUpVector.normalized));
+
+        //观察一个点积，它能诱导喙是否指向花(1 观测量)
+        //(+1 意味着喙直接指向花, -1 意思是直接离开)
+        sensor.AddObservation(Vector3.Dot(beakTip.forward, -nearestFlower.FlowerUpVector.normalized));
+
+        //观察喙尖到花的相对距离，在圆面区域中，矢量原则上一定比直径要小(1 观测量)
+        sensor.AddObservation(toFlower.magnitude / FlowerArea.AreaDiameter);
+
+        //11
+    }
+
+    /// <summary>
+    /// 当行为类型在代理行为参数中设置为“仅人工操作”
+    /// 该方法被调用，并且返回输入值。
+    /// <see cref="OnActionReceived(float[])"/> 替换掉神经网络
+    /// </summary>
+    /// <param name="actionsOut">输出动作数组,actionsOut中的数据要对应神经网络的vectorAction来定</param>
+    public override void Heuristic(float[] actionsOut)
+    {
+        //create placeholders for all movement/turning
+        Vector3 forward = Vector3.zero;
+        Vector3 left = Vector3.zero;
+        Vector3 up = Vector3.zero;
+        float pitch = 0f;
+        float yaw = 0f;
+
+        //将键盘输入转换为移动和旋转
+        //所有值应介于-1和+1之间
+
+        //向前向后移动
+        if (Input.GetKey(KeyCode.W))
+        {
+            forward = transform.forward;
+        }
+        else if (Input.GetKey(KeyCode.S))
+        {
+            forward = -transform.forward;
+        }
+
+        //向左向右移动
+        if (Input.GetKey(KeyCode.A))
+        {
+            left = -transform.right;
+        }
+        else if (Input.GetKey(KeyCode.F))
+        {
+            left = transform.right;
+        }
+
+        //起降移动
+        if (Input.GetKey(KeyCode.E))
+        {
+            up = transform.up;
+        }
+        else if (Input.GetKey(KeyCode.C))
+        {
+            up = -transform.up;
+        }
+
+        //pitch up/down
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            pitch = 1;
+        }
+        else if (Input.GetKey(KeyCode.DownArrow))
+        {
+            pitch = -1;
+        }
+
+        //turn right/left
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            yaw = 1;
+        }
+        else if (Input.GetKey(KeyCode.RightArrow))
+        {
+            yaw = -1;
+        }
+
+        //将移动数据和朝向和升降结合整合到一起
+        Vector3 combined = (forward + left + up).normalized;
+
+        //添加三个动作数据到动作数组中
+        actionsOut[0] = combined.x;
+        actionsOut[1] = combined.y;
+        actionsOut[2] = combined.z;
+        actionsOut[3] = yaw;
+        actionsOut[4] = pitch;
+    }
+
+    /// <summary>
+    /// 阻止代理移动和执行操作
+    /// </summary>
+    public void FreezeAgent()
+    {
+        Debug.Assert(trainingMode == false, "Freeze/UnFreeze not supported in training");
+
+        frozen = true;
+        rigidbody.Sleep();
+    }
+
+
+    /// <summary>
+    /// 唤醒代理移动和执行操作
+    /// </summary>
+    public void UnFreezeAgent()
+    {
+        Debug.Assert(trainingMode == false, "Freeze/UnFreeze not supported in training");
+
+        frozen = false;
+        rigidbody.WakeUp();
+    }
+
+    /// <summary>
+    /// 当代理的对撞机进入触发器对撞机时调用
+    /// </summary>
+    /// <param name="other">触发的对撞机</param>
+    private void OnTriggerEnter(Collider other)
+    {
         
+    }
+
+    /// <summary>
+    /// 当代理的对撞机停留在触发器对撞机中时调用
+    /// </summary>
+    /// <param name="other">触发的对撞机</param>
+    private void OnTriggerStay(Collider other)
+    {
 
     }
+
+    /// <summary>
+    /// 管理当代理的对撞机进入或者停留在碰撞器中
+    /// </summary>
+    /// <param name="other">触发的对撞机</param>
+    private void TriggerEnterOrStay(Collider collider)
+    {
+        //检查代理是否碰撞到花蜜
+        if (collider.CompareTag("nectar"))
+        {
+            //碰撞点的离得代理喙尖最边缘位置
+            Vector3 closestPointToBeakTip = collider.ClosestPointOnBounds(beakTip.position);
+
+            //确认是否喙尖位置与最近碰撞点距离小于喙尖半斤
+            if (Vector3.Distance(closestPointToBeakTip,beakTip.position) < BeakTipRedius)
+            {
+                //根据对撞机查看花字典中存储的花
+                Flower flower = flowerArea.GetFlowerFromNectar(collider);
+
+                //准备喝0.01花蜜
+                //这是每个固定的时间阶段，意味着它每发生一次。
+                float nectarReceived = flower.Feed(.01f);
+
+                //跟踪获得的花蜜
+                NectarObtained += nectarReceived;
+
+                //只有当训练模式的情况才有加分
+                if (trainingMode)
+                {
+                    //代理朝向前方 * 花位置向下矢量的值越大，获得的分数越多
+                    float bouns = .02f * Mathf.Clamp01(Vector3.Dot(transform.forward.normalized, -nearestFlower.FlowerUpVector.normalized));
+                    AddReward(bouns + .01f);
+                }
+
+                //如果花蜜是空的，更新花
+                if (!flower.HasNectar)
+                {
+                    UpdateNearestFlower();
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// 当代理与固体碰撞时调用
+    /// </summary>
+    /// <param name="collision">对撞机信息</param>
+    private void OnCollisionEnter(Collision collision)
+    {
+        //如果在训练下代理碰到边界，则减分
+        if(trainingMode && collision.collider.CompareTag("boundary"))
+        {
+            AddReward(-.5f);
+        }
+    }
+
+    private void Update()
+    {
+        //draw a line from beak tip to the nearest flower
+        if(nearestFlower != null)
+        {
+            Debug.DrawLine(beakTip.position, nearestFlower.FlowerCenterPosition, Color.green);
+        }
+    }
+    
+    /// <summary>
+    /// 每.02帧都会检测是否除最近花其它全部花的花蜜都没有，则重置花
+    /// </summary>
+    private void FixedUpdate()
+    {
+        if(nearestFlower != null && !nearestFlower.HasNectar)
+        {
+            UpdateNearestFlower();
+        }
+    }
+
 }

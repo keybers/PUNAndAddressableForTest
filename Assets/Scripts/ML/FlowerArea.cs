@@ -60,7 +60,7 @@ public class FlowerArea : MonoBehaviour
         nectarFlowerDictionary = new Dictionary<Collider, Flower>();
         Flowers = new List<Flower>();
 
-        //查找所有花园中的花的数量
+        //查找所有花园下所有花的数量
         FindChildFlowers(transform);
 
     }
@@ -71,6 +71,37 @@ public class FlowerArea : MonoBehaviour
     /// <param name="parent"></param>
     private void FindChildFlowers(Transform parent)
     {
-        
+        for (int i = 0; i < parent.childCount; i++)
+        {
+            Transform child = parent.GetChild(i);
+
+            if (child.CompareTag("flower_plant"))
+            {
+                //找到花团，添加当前花
+                flowerPlants.Add(child.gameObject);
+
+                //递归调用
+                FindChildFlowers(child);
+            }
+            else
+            {
+                //根据flower组件查早花，不是更具
+                Flower flower = child.GetComponent<Flower>();
+                if(flower != null)
+                {
+                    //找到了则添加到花列表中
+                    Flowers.Add(flower);
+
+                    //添加对应的花蕊到字典中
+                    nectarFlowerDictionary.Add(flower.nectarCollider, flower);
+
+                }
+                else
+                {
+                    //没找到花组件，继续查找
+                    FindChildFlowers(child);
+                }
+            }
+        }
     }
 }

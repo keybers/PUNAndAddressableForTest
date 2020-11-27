@@ -67,6 +67,7 @@ MonoBehaviour:
     m_LabelNames:
     - default
     - TextLabel
+    - agent
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: db6bf19ea70a390499a16d8e2aae4583, type: 2}

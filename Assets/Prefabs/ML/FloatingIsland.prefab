@@ -6483,6 +6483,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hummingbird
       objectReference: {fileID: 0}
+    - target: {fileID: 8005050037668528862, guid: ee5d7605796823e44b0821e269dced5d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee5d7605796823e44b0821e269dced5d, type: 3}
 --- !u!4 &5227812465203542851 stripped

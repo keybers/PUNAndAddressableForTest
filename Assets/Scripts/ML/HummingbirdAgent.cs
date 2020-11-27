@@ -58,6 +58,14 @@ public class HummingbirdAgent : Agent
     public float NectarObtained { get; private set; }
 
     /// <summary>
+    /// 初始化
+    /// </summary>
+    private void Start()
+    {
+        Initialize();
+    }
+
+    /// <summary>
     /// 初始化代理
     /// </summary>
     public override void Initialize()

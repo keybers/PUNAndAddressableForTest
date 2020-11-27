@@ -32,7 +32,7 @@ public class AddressablePrefabPool : ScriptableObject,IPunPrefabPool
     }
 
     //先把addressable的资源全部加载出来并且池化
-    public void LoadAsset(AssetReference assetReference)
+    public void LoadAsset(AssetReference assetReference,Transform transform)
     {
         //异步
         Addressables.LoadAssetAsync<GameObject>(assetReference).Completed += (delegate (
@@ -49,7 +49,7 @@ public class AddressablePrefabPool : ScriptableObject,IPunPrefabPool
                         this.prefabs[key] = new Pool(key, handle.Result);
                         if (this.prefabs[key] != null)
                         {
-                            this.PrefabPoolReady(key);
+                            this.PrefabPoolReady(key, transform);
                         }
                     }
                     else
@@ -66,16 +66,16 @@ public class AddressablePrefabPool : ScriptableObject,IPunPrefabPool
         });
     }
 
-    public delegate void PrefabPoolReadyDelegate(string prefabName);
+    public delegate void PrefabPoolReadyDelegate(string prefabName,Transform transform);
 
     public event PrefabPoolReadyDelegate PrefabPoolReady;
 
-    public void OnPrefabPoolReady(string prefabName)
+    public void OnPrefabPoolReady(string prefabName, Transform parent)
     {
-        GameObject go = PhotonNetwork.Instantiate(prefabName, Vector3.zero, Quaternion.identity);
+        GameObject go = PhotonNetwork.Instantiate(prefabName, new Vector3(2f, 2.3f, -4.5f), Quaternion.Euler(30f, -33f, 0f));
+        go.transform.parent = parent;
         Debug.LogFormat("ViewID: {0}", go.GetComponent<PhotonView>().ViewID);
     }
-
 
     public void Destroy(GameObject gameObject)
     {

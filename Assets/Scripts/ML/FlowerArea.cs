@@ -12,7 +12,7 @@ public class FlowerArea : MonoBehaviour
     public const float AreaDiameter = 20f;
 
     [Tooltip("某花区内所有花的列表")]
-    public List<GameObject> flowerPlants;
+    private List<GameObject> flowerPlants;
 
     [Tooltip("根据字典<对撞机,花蜜>来管理查找花蜜")]
     public Dictionary<Collider, Flower> nectarFlowerDictionary;

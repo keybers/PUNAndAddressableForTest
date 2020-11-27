@@ -314,7 +314,7 @@ public class HummingbirdAgent : Agent
         {
             left = -transform.right;
         }
-        else if (Input.GetKey(KeyCode.F))
+        else if (Input.GetKey(KeyCode.D))
         {
             left = transform.right;
         }
@@ -389,7 +389,7 @@ public class HummingbirdAgent : Agent
     /// <param name="other">触发的对撞机</param>
     private void OnTriggerEnter(Collider other)
     {
-        
+        TriggerEnterOrStay(other);
     }
 
     /// <summary>
@@ -398,7 +398,7 @@ public class HummingbirdAgent : Agent
     /// <param name="other">触发的对撞机</param>
     private void OnTriggerStay(Collider other)
     {
-
+        TriggerEnterOrStay(other);
     }
 
     /// <summary>

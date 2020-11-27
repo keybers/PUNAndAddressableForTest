@@ -9,8 +9,6 @@ public class SimpleObjectMover : MonoBehaviourPun,IPunObservable
     private float _moveSpeed = 1f;
 
     private Animator _animator;
-    private GameObject _CMMain;
-
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {

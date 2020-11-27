@@ -21,8 +21,8 @@ public class HummingbirdAgent : Agent
     [Tooltip("在喙尖变换")]
     public Transform beakTip;
 
-    [Tooltip("代理人摄像头")]
-    public Camera agentCamera;
+    //[Tooltip("代理人摄像头")]
+    //public Camera agentCamera;
 
     [Tooltip("无论是训练模式还是游戏模式")]
     public bool trainingMode;

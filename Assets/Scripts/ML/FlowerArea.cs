@@ -50,6 +50,10 @@ public class FlowerArea : MonoBehaviour
     /// <returns></returns>
     public Flower GetFlowerFromNectar(Collider collider)
     {
+        if (!nectarFlowerDictionary.ContainsKey(collider))
+        {
+            FindChildFlowers(transform);
+        }
         return nectarFlowerDictionary[collider];
     }
 
@@ -60,9 +64,12 @@ public class FlowerArea : MonoBehaviour
         nectarFlowerDictionary = new Dictionary<Collider, Flower>();
         Flowers = new List<Flower>();
 
+    }
+
+    private void Start()
+    {
         //查找所有花园下所有花的数量
         FindChildFlowers(transform);
-
     }
 
     /// <summary>

@@ -91,6 +91,7 @@ public class HummingbirdAgent : Agent
         {
             //当每个训练区域只剩下一个代理的时候，只重置花
             flowerArea.ResetFlowers();
+            Debug.Log("trainingMode is awake");
         }
 
         //重置花蜜量

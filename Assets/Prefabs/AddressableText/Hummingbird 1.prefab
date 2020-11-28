@@ -91,7 +91,7 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 2
+  m_Priority: 1
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 6434798618752004301}
@@ -647,7 +647,7 @@ MonoBehaviour:
   pitchSpeed: 100
   yawSpeed: 100
   beakTip: {fileID: 749827769155012578}
-  trainingMode: 1
+  trainingMode: 0
 --- !u!114 &5747171898215545924
 MonoBehaviour:
   m_ObjectHideFlags: 0

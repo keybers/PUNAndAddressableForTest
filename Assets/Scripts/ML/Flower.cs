@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Flower : MonoBehaviour
 {
@@ -16,12 +17,31 @@ public class Flower : MonoBehaviour
     [HideInInspector]
     public Collider nectarCollider;
 
-    //代表花的实体对撞机
+    /// <summary>
+    /// 代表花的实体对撞机
+    /// </summary>
     private Collider flowerCollider;
 
-    //花的材质
+    /// <summary>
+    /// 花的材质
+    /// </summary>
     private Material flowerMaterial;
 
+    /// <summary>
+    /// 花蕊数量
+    /// </summary>
+    public float NectarAmount { get;private set; }
+
+    /// <summary>
+    /// 判断是否有花蕊
+    /// </summary>
+    public bool HasNectar
+    {
+        get
+        {
+            return NectarAmount > 0f;
+        }
+    }
     /// <summary>
     /// 指向花上方的矢量
     /// </summary>
@@ -41,22 +61,6 @@ public class Flower : MonoBehaviour
         get
         {
             return nectarCollider.transform.position;
-        }
-    }
-
-    /// <summary>
-    /// 花蕊数量
-    /// </summary>
-    public float NectarAmount { get; private set; }
-
-    /// <summary>
-    /// 判断是否有花蕊
-    /// </summary>
-    public bool HasNectar
-    {
-        get
-        {
-            return NectarAmount > 0f;
         }
     }
 
@@ -83,7 +87,7 @@ public class Flower : MonoBehaviour
             flowerMaterial.SetColor("_BaseColor", emptyFlowerColor);
         }
 
-        //返回获取花蜜的数量
+        //返回取走花蜜的数量
         return nectarTaken;
     }
 
@@ -101,6 +105,7 @@ public class Flower : MonoBehaviour
 
         //改变花蕊颜色表示为充满花蕊数量
         flowerMaterial.SetColor("_BaseColor", fullFlowerColor);
+
     }
 
     /// <summary>

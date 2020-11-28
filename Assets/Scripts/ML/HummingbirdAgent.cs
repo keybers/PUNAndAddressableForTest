@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.MLAgents;
@@ -70,8 +71,14 @@ public class HummingbirdAgent : Agent
     /// </summary>
     public override void Initialize()
     {
+        //绑定
         rigidbody = GetComponent<Rigidbody>();
         flowerArea = GetComponentInParent<FlowerArea>();
+
+        //设置位置
+        transform.parent = GameObject.FindWithTag("spawnpoint").transform;
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
 
         //如果不是训练模式，没有最大步数，永远玩
         if (!trainingMode) MaxStep = 0;
@@ -297,6 +304,9 @@ public class HummingbirdAgent : Agent
     /// <param name="actionsOut">输出动作数组,actionsOut中的数据要对应神经网络的vectorAction来定</param>
     public override void Heuristic(float[] actionsOut)
     {
+        if (!GetComponent<PhotonView>().IsMine)
+            return;
+
         //create placeholders for all movement/turning
         Vector3 forward = Vector3.zero;
         Vector3 left = Vector3.zero;

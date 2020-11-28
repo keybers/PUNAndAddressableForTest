@@ -9,22 +9,29 @@ using Photon.Pun;
 public class PlayerListing : MonoBehaviourPunCallbacks
 {
     [SerializeField]
+    [Tooltip("房间信息表示框")]
     private Text _test;
 
-    public Player Player
-    {
-        get;
-        private set;
-    }
+    [Tooltip("判断房间是否准备")]
+    public bool Ready = false;
 
+    public Player Player { get; private set; }
+
+    /// <summary>
+    /// 设置进入玩家对象的信息
+    /// </summary>
+    /// <param name="player">玩家对象</param>
     public void SetPlayerInfo(Player player)
     {
         Player = player;
         SetPlayerText(player);
     }
 
-    public bool Ready = false;
-
+    /// <summary>
+    /// 重载方法，更新传入的玩家参数
+    /// </summary>
+    /// <param name="targetPlayer">玩家对象</param>
+    /// <param name="changedProps">更改参数</param>
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
         base.OnPlayerPropertiesUpdate(targetPlayer, changedProps);
@@ -37,6 +44,10 @@ public class PlayerListing : MonoBehaviourPunCallbacks
         }
     }
 
+    /// <summary>
+    /// 设置玩家对象的信息框
+    /// </summary>
+    /// <param name="player">玩家对象</param>
     private void SetPlayerText(Player player)
     {
         int result = -1;

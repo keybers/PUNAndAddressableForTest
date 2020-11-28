@@ -7,10 +7,15 @@ using UnityEngine.UI;
 public class RandomCustomPorpertyGenerator : MonoBehaviour
 {
     [SerializeField]
+    [Tooltip("ID数值")]
     private Text _text;
 
-    private ExitGames.Client.Photon.Hashtable _myCustomProperties = new ExitGames.Client.Photon.Hashtable();
+    [Tooltip("定义PUN的玩家ID参数hashtable")]
+    private ExitGames.Client.Photon.Hashtable currentIDProperties = new ExitGames.Client.Photon.Hashtable();
 
+    /// <summary>
+    /// 设置ID随机数
+    /// </summary>
     private void SetCustomNumber()
     {
         System.Random rmd = new System.Random();
@@ -18,12 +23,15 @@ public class RandomCustomPorpertyGenerator : MonoBehaviour
 
         _text.text = result.ToString();
 
-        _myCustomProperties["RandomNumber"] = result;
-        PhotonNetwork.SetPlayerCustomProperties(_myCustomProperties);
+        currentIDProperties["RandomNumber"] = result;
+        PhotonNetwork.SetPlayerCustomProperties(currentIDProperties);
         
         //PhotonNetwork.LocalPlayer.CustomProperties = _myCustomProperties;
     }
 
+    /// <summary>
+    /// 点击当前按钮
+    /// </summary>
     public void OnClick_Button()
     {
         SetCustomNumber();

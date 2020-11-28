@@ -7,6 +7,7 @@ TagManager:
   - flower_plant
   - nectar
   - boundary
+  - spawnpoint
   layers:
   - Default
   - TransparentFX

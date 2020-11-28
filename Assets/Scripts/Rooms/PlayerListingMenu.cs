@@ -60,6 +60,9 @@ public class PlayerListingMenu : MonoBehaviourPunCallbacks
         _roomCanvases = roomCanvases;
     }
 
+    /// <summary>
+    /// 获取当前房间的玩家信息
+    /// </summary>
     private void GetCurrentRoomPlayers()
     {
         if (!PhotonNetwork.IsConnected)

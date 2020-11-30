@@ -54,7 +54,7 @@ public class Flower : MonoBehaviour
     }
 
     /// <summary>
-    /// 花蕊的中心位置
+    /// 花蕊的中心位置中
     /// </summary>
     public Vector3 FlowerCenterPosition
     {

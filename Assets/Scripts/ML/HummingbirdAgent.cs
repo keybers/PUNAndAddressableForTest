@@ -91,7 +91,6 @@ public class HummingbirdAgent : Agent
         {
             //当每个训练区域只剩下一个代理的时候，只重置花
             flowerArea.ResetFlowers();
-            Debug.Log("trainingMode is awake");
         }
 
         //重置花蜜量
@@ -302,8 +301,9 @@ public class HummingbirdAgent : Agent
     /// <param name="actionsOut">输出动作数组,actionsOut中的数据要对应神经网络的vectorAction来定</param>
     public override void Heuristic(float[] actionsOut)
     {
-        if (!GetComponent<PhotonView>().IsMine)
-            return;
+        //游戏时候开启
+        //if (!GetComponent<PhotonView>().IsMine)
+        //    return;
 
         //create placeholders for all movement/turning
         Vector3 forward = Vector3.zero;
@@ -441,6 +441,7 @@ public class HummingbirdAgent : Agent
 
                 //跟踪获得的花蜜
                 NectarObtained += nectarReceived;
+                //Debug.Log("NectarObtained:" + NectarObtained);
 
                 //只有当训练模式的情况才有加分
                 if (trainingMode)

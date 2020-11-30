@@ -67,7 +67,7 @@ public class Flower : MonoBehaviour
     /// <summary>
     /// 减少花蜜喂给代理
     /// </summary>
-    /// <param name="amount"></param>
+    /// <param name="amount">花蜜减少量</param>
     /// <returns></returns>
     public float Feed(float amount)
     {

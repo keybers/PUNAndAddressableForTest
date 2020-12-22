@@ -301,10 +301,12 @@ public class HummingbirdAgent : Agent
     /// <param name="actionsOut">输出动作数组,actionsOut中的数据要对应神经网络的vectorAction来定</param>
     public override void Heuristic(float[] actionsOut)
     {
-        //游戏时候开启
-        //if (!GetComponent<PhotonView>().IsMine)
-        //    return;
-
+#if UNITY_EDITOR
+        Debug.Log("机器学习模式");
+#else
+        if (!GetComponent<PhotonView>().IsMine)
+            return;
+#endif
         //create placeholders for all movement/turning
         Vector3 forward = Vector3.zero;
         Vector3 left = Vector3.zero;

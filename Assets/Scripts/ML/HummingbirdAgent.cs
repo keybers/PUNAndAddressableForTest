@@ -302,7 +302,7 @@ public class HummingbirdAgent : Agent
     public override void Heuristic(float[] actionsOut)
     {
 #if UNITY_EDITOR
-        Debug.Log("机器学习模式");
+        //Debug.Log("机器学习模式");
 #else
         if (!GetComponent<PhotonView>().IsMine)
             return;

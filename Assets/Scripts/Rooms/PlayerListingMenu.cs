@@ -36,10 +36,12 @@ public class PlayerListingMenu : MonoBehaviourPunCallbacks
         if (_ready)
         {
             _readyUpText.text = "R";
+            _readyUpText.color = Color.white;
         }
         else
         {
             _readyUpText.text = "N";
+            _readyUpText.color = Color.grey;
         }
 
     }
